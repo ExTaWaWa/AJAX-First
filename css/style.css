@@ -1,0 +1,18 @@
+.logInPage{
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(111, 193, 231);
+}
+
+.showUp{
+  visibility: visible;
+}

@@ -1,0 +1,43 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Ajax 練習
+    link(rel="stylesheet", href="css/style.css")
+  body 
+    p.msg
+
+    form(action="index.html")
+      |帳號：
+      input.account(type="text" name="account")
+      br
+      |密碼：
+      input.pass(type="password" name="password")
+      p.alert
+      br
+      input.click(type="submit" value="送出")
+
+    br
+    br
+
+    form(action="index.html")
+      |帳號：
+      input.accountSign(type="text" name="account")
+      br
+      |密碼：
+      input.passSign(type="password" name="password")
+      p.alertSign
+      br
+      input.clickSign(type="submit" value="送出")
+
+    .logInPage 
+      |您已登入成功！
+      br 
+      |此為暫時預設登入畫面
+
+    <!-- index.html?account=gg1234&password=jkbxxaahh -->
+
+    script(src="js/all.js") 
+    
