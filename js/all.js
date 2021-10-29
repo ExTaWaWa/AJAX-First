@@ -16,21 +16,42 @@
 
 // 傳空的資料，因為只有要取資料
 // xhr.send(null);
+// 在codepen需要用cros anywhere https://cors-anywhere.herokuapp.com/才可以正常抓api
 
 let xhr = new XMLHttpRequest();
 xhr.open('get', 'http://opendata2.epa.gov.tw/UV/UV.json', true);
 xhr.send(null);
 
 xhr.onload = function () {
+  let data = JSON.parse(xhr.responseText);
   // 讓 log 顯示資料
   if (xhr.status == 200) {
-    let str = JSON.stringify(JSON.parse(xhr.responseText), null, '\t');
+    let str = JSON.stringify(data, null, '\t');
     // let str = JSON.parse(xhr.responseText);
     document.querySelector('.msg').textContent = str;
     console.log(str);
   } else {
     console.log('資料錯誤！');
   }
+
+  let cards = '';
+
+  for (let i = 0; i < data.length; i++) {
+    cards += `
+    <div class="pe-2 col-3">
+      <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">${data[i].County}</div>
+        <div class="card-body">
+          <h5 class="card-title">${data[i].SiteName}</h5>
+          <h3 class="card-subtitle">UV指數：${data[i].UVI}</h3>
+          <p class="card-text">${data[i].PublishAgency}</p>
+          <p class="card-text">${data[i].PublishTime}</p>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  document.querySelector('.UVData').innerHTML = cards;
 }
 //1.建立了一個XMLHttpRequest()
 //2.傳送到對方伺服器要資料
@@ -43,7 +64,7 @@ let target = (tag) => document.querySelector(tag);
 let account = target('.account');
 let pass = target('.pass');
 let click = target('.click');
-let alertText = target('.alert');
+let alertText = target('.alertText');
 
 click.addEventListener('click', Post);
 
@@ -53,6 +74,7 @@ function Post(e) {
   // 如果信箱密碼是空的，提醒使用者
   if (account.value.trim() == '' || pass.value.trim() == '') {
     alertText.textContent = '欄位不可為空白';
+    alertText.classList.add('text-danger');
     return;
   }
 
@@ -74,8 +96,11 @@ function Post(e) {
     alertText.textContent = text;
     if (text == '帳號註冊成功') {
       alert('帳號註冊成功！！');
+      alertText.classList.add('text-success');
       account.value = '';
       pass.value = '';
+    } else {
+      alertText.classList.add('text-danger');
     }
   }
 }
@@ -108,8 +133,15 @@ function Sign(e) {
     var textSignIn = JSON.parse(xhrIn.responseText).message;
     alertTextSign.textContent = textSignIn;
     if (textSignIn == '登入成功') {
+      alertTextSign.classList.add('text-success');
       alert('登入成功！！');
       logInPage.classList.add('showUp');
+    } else {
+      alertTextSign.classList.add('text-danger');
     }
   }
 }
+
+document.querySelector('.closePopup').addEventListener('click',function(){
+  logInPage.classList.remove('showUp');
+})

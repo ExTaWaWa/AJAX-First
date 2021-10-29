@@ -5,39 +5,57 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title Ajax 練習
-    link(rel="stylesheet", href="css/style.css")
+    link(rel="stylesheet" href="css/style.css")
+    <!-- CSS only -->
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous")
   body 
-    p.msg
+          
+    .container 
+      .row.mt-3.mb-3
+        .accordion#ac01   
+          .accordion-item   
+            h2.accordion-header#heading01 
+              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#collapse01" aria-expanded="true" aria-controls="collapse01") 第一個XHR練習
+            #collapse01.accordion-collapse.collapse(aria-labelledby="heading01" data-bs-parent="#ac01")
+              .accordion-body
+                p.msg
+        .accordion#ac02   
+          .accordion-item   
+            h2.accordion-header#heading02 
+              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#collapse02" aria-expanded="true" aria-controls="collapse02") 串資料進卡片
+            #collapse02.accordion-collapse.collapse(aria-labelledby="heading02" data-bs-parent="#ac02")
+              .accordion-body.UVData.d-flex.flex-row.flex-wrap      
+      .row.g-3 
+        .col
+          h3 註冊
+          form(action="index.html")
+            |帳號：
+            input.account.form-control(type="text" name="account")
+            |密碼：
+            input.pass.form-control(type="password" name="password")
+            p.alertText
+            input.click.btn.btn-primary.mb-3(type="submit" value="送出")
 
-    form(action="index.html")
-      |帳號：
-      input.account(type="text" name="account")
-      br
-      |密碼：
-      input.pass(type="password" name="password")
-      p.alert
-      br
-      input.click(type="submit" value="送出")
-
-    br
-    br
-
-    form(action="index.html")
-      |帳號：
-      input.accountSign(type="text" name="account")
-      br
-      |密碼：
-      input.passSign(type="password" name="password")
-      p.alertSign
-      br
-      input.clickSign(type="submit" value="送出")
+        .col 
+          h3 登入
+          form(action="index.html")
+            |帳號：
+            input.accountSign.form-control(type="text" name="account")
+            |密碼：
+            input.passSign.form-control(type="password" name="password")
+            p.alertSign
+            input.clickSign.btn.btn-primary.mb-3(type="submit" value="送出")
 
     .logInPage 
-      |您已登入成功！
-      br 
-      |此為暫時預設登入畫面
+      .d-grid.gap-2.col-6.mx-auto
+        |您已登入成功！
+        br 
+        |此為暫時預設登入畫面
+        br
+        button.closePopup.btn.btn-warning(type='button') 關閉提醒
 
     <!-- index.html?account=gg1234&password=jkbxxaahh -->
 
     script(src="js/all.js") 
-    
+    <!-- JavaScript Bundle with Popper -->
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous")
