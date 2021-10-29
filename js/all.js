@@ -29,7 +29,7 @@ xhr.onload = function () {
     let str = JSON.stringify(data, null, '\t');
     // let str = JSON.parse(xhr.responseText);
     document.querySelector('.msg').textContent = str;
-    console.log(str);
+    // console.log(str);
   } else {
     console.log('資料錯誤！');
   }
@@ -142,6 +142,37 @@ function Sign(e) {
   }
 }
 
-document.querySelector('.closePopup').addEventListener('click',function(){
+document.querySelector('.closePopup').addEventListener('click', function () {
   logInPage.classList.remove('showUp');
 })
+
+
+// axios 練習 (其實需要 npm 下來，但是這邊用 cdn 的方法，Live Server可以運作)
+// 在codepen需要用cros anywhere https://cors-anywhere.herokuapp.com/才可以正常抓api
+axios.get('http://opendata2.epa.gov.tw/UV/UV.json')
+  .then(function (res) {
+    let str = JSON.stringify(res.data, null, '\t');
+    console.log(str);
+    document.querySelector('.axiosMsg').innerHTML = str;
+
+    // 預設是JSON所以不必用parse轉換，直接可以用
+    let data = res.data;
+    let cards = '';
+
+    for (let i = 0; i < data.length; i++) {
+      cards += `
+    <div class="pe-2 col-3">
+      <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">${data[i].County}</div>
+        <div class="card-body">
+          <h5 class="card-title">${data[i].SiteName}</h5>
+          <h3 class="card-subtitle">UV指數：${data[i].UVI}</h3>
+          <p class="card-text">${data[i].PublishAgency}</p>
+          <p class="card-text">${data[i].PublishTime}</p>
+        </div>
+      </div>
+    </div>`;
+    }
+
+    document.querySelector('.UVDataAxios').innerHTML = cards;
+  })
